@@ -1,0 +1,31 @@
+# --- Environnement virtuel ---
+.venv/
+
+# --- Jupyter Notebooks & Caches ---
+.ipynb_checkpoints/
+keras_tuner_dir/
+
+# --- Modèles et artefacts ---
+model/
+*.h5
+*.keras
+*.pkl
+*.joblib
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.installed.cfg
+*.egg
+
+# --- Logs & Rapports ---
+*.log
+metrics.json
+
+# --- OS & Divers ---
+.DS_Store
+Thumbs.db
