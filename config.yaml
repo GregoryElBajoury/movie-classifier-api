@@ -1,0 +1,3 @@
+min_f1: 0.70
+min_test_size: 100
+justification_seuil: "Un seuil de F1 de 0.70 a été choisi car il représente un compromis robuste garantissant de bonnes performances de classification tout en absorbant la marge de bruit inhérente aux résumés de films textuels."
