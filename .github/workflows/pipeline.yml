@@ -17,7 +17,7 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.14'
-          cache: 'pip' # Cache pip pour accélérer l'installation
+          cache: 'pip'
           cache-dependency-path: requirements-app.txt
 
       - name: Install dependencies
@@ -63,3 +63,34 @@ jobs:
           echo "Erreur : L'API n'a pas démarré à temps. Affichage des logs du conteneur :"
           docker logs movie-container
           exit 1
+
+  publier:
+    needs: image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Debug Info
+        run: |
+          echo "=== DEBUG INFO ==="
+          echo "GitHub SHA : ${{ github.sha }}"
+          echo "Registry Server : ${{ secrets.AZURE_REGISTRY_SERVER }}"
+          echo "Current directory contents:"
+          ls -la
+
+      - name: Log in to Azure Container Registry
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ secrets.AZURE_REGISTRY_SERVER }}
+          username: ${{ secrets.AZURE_REGISTRY_USERNAME }}
+          password: ${{ secrets.AZURE_REGISTRY_PASSWORD }}
+
+      - name: Build and push Docker image to Azure
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ secrets.AZURE_REGISTRY_SERVER }}/movie-classifier-api:${{ github.sha }}
+            ${{ secrets.AZURE_REGISTRY_SERVER }}/movie-classifier-api:latest
