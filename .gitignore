@@ -8,6 +8,7 @@ keras_tuner_dir/
 # --- Modèles et artefacts ---
 
 #model/
+#metrics.json
 #*.h5
 #*.keras
 #*.pkl
@@ -25,7 +26,7 @@ __pycache__/
 
 # --- Logs & Rapports ---
 *.log
-metrics.json
+
 
 # --- OS & Divers ---
 .DS_Store

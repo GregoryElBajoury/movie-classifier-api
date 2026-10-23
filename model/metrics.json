@@ -1,0 +1,9 @@
+{
+    "version_modele": "1.0.0",
+    "f1_test": 0.8522740241302651,
+    "taille_test": 469,
+    "bibliotheques": {
+        "tensorflow": "2.22.0-rc0",
+        "scikit_learn": "2.5.4"
+    }
+}
