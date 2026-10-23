@@ -6,11 +6,12 @@
 keras_tuner_dir/
 
 # --- Modèles et artefacts ---
-model/
-*.h5
-*.keras
-*.pkl
-*.joblib
+
+#model/
+#*.h5
+#*.keras
+#*.pkl
+#*.joblib
 
 # --- Python ---
 __pycache__/
