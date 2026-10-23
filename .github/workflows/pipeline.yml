@@ -27,9 +27,9 @@ jobs:
 
       - name: Run Quality Gate & Tests
         run: |
-          echo "Barrière qualité et tests exécutés avec succès !"
-          # Si tu ajoutes des tests unitaires plus tard (ex: pytest), mets ta commande ici :
-          # pytest
+          echo "=== Lancement de la barrière qualité ==="
+          python check_quality.py
+          echo "=== Barrière qualité validée avec succès ==="
 
   image:
     needs: test
