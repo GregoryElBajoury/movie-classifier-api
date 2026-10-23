@@ -18,6 +18,7 @@ jobs:
         with:
           python-version: '3.14'
           cache: 'pip' # Cache pip pour accélérer l'installation
+          cache-dependency-path: requirements-app.txt
 
       - name: Install dependencies
         run: |
