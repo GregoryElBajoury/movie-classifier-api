@@ -7,14 +7,15 @@ from tensorflow.keras.models import load_model
 app = FastAPI(
     title="Classifieur de résumés de films",
     description="API de classification de films (Horreur ou Comédie)",
-    version="0.1.0",
+    version="1.0.0",
 )
 
 # Chargement unique des artéfacts au démarrage du serveur
 try:
     with open("model/metrics.json", "r", encoding="utf-8") as f:
         metrics = json.load(f)
-    model_version = metrics.get("version", "0.1.0")
+    # On récupère "version_modele" (qui vaut "1.0.0" d'après ton fichier)
+    model_version = metrics.get("version_modele", metrics.get("version", "0.1.0"))
 except Exception:
     model_version = "0.1.0"
 
@@ -24,6 +25,10 @@ vectorizer = joblib.load("model/vectoriseur.joblib")
 
 class MovieInput(BaseModel):
     text: str = Field(..., min_length=10, description="Résumé du film (minimum 10 caractères)")
+
+@app.get("/hello")
+def hello():
+    return {"message": "hello depuis la version déployée sur Azure"}
 
 @app.get("/health")
 def health_check():
@@ -44,6 +49,8 @@ def predict_movie(input_data: MovieInput):
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Le résumé est trop court (minimum 10 caractères requis)."
         )
+
+
     
     # Transformation TF-IDF et prédiction
     X_vec = vectorizer.transform([text])
