@@ -1,4 +1,5 @@
 import json
+import os
 from fastapi import FastAPI, HTTPException, status
 from pydantic import BaseModel, Field
 import joblib
@@ -15,9 +16,13 @@ try:
     with open("model/metrics.json", "r", encoding="utf-8") as f:
         metrics = json.load(f)
     # On récupère "version_modele" (qui vaut "1.0.0" d'après ton fichier)
-    model_version = metrics.get("version_modele", metrics.get("version", "0.1.0"))
+    file_version = metrics.get("version_modele", metrics.get("version", "0.1.0"))
 except Exception:
-    model_version = "0.1.0"
+    file_version = "0.1.0"
+
+# On récupère le hash du commit via la variable d'environnement, sinon la valeur par défaut
+model_version = os.getenv("COMMIT_SHA", file_version)
+
 
 # Chargement du modèle et du vectoriseur TF-IDF
 model = load_model("model/model.keras")
